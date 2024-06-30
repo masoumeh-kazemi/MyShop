@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Shop.Application.Categories;
 using Shop.Application.Products;
 using Shop.Application.Users;
+using Shop.Domain.CategoryAgg.Services;
 using Shop.Domain.ProductAgg.Services;
 using Shop.Domain.UserAgg.Services;
 using Shop.Infrastructure;
@@ -14,6 +16,8 @@ public static class ShopBootstrapper
         InfrastructureBootstrapper.Init(services, connectionString);
         services.AddScoped<IUserDomainService, UserDomainService>();
         services.AddScoped<IProductDomainService, ProductDomainService>();
+        services.AddScoped<ICategoryDomainService, CategoryDomainService>();
+
 
     }
 }
