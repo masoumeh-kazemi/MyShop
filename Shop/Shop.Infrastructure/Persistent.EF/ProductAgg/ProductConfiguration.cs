@@ -56,6 +56,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.OwnsMany(b => b.Images, option =>
         {
             option.ToTable("Images", "product");
+            option.HasKey(b => b.Id);
             option.Property(b => b.ImageName)
                 .IsRequired()
                 .HasMaxLength(100);
@@ -73,6 +74,8 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
             option.Property(b => b.Key)
                 .IsRequired()
                 .HasMaxLength(100);
+            option.HasKey(b => b.Id);
+
         });
 
         builder.OwnsMany(b => b.Images, option =>

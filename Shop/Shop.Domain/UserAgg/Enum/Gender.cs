@@ -2,6 +2,7 @@
 
 public enum Gender
 {
+    نامشخص,
     زن,
     مرد
 }

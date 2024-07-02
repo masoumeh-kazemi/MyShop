@@ -10,11 +10,9 @@
     <Folder Include="Categories\" />
     <Folder Include="Orders\" />
     <Folder Include="Products\" />
-    <Folder Include="Roles\" />
     <Folder Include="Sellers\" />
     <Folder Include="SiteEntitie\Banners\" />
     <Folder Include="SiteEntitie\Sliders\" />
-    <Folder Include="Users\" />
   </ItemGroup>
 
   <ItemGroup>

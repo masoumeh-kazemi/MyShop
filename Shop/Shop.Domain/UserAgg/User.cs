@@ -40,5 +40,11 @@ public class User : AggregateRoot
     public List<UserAddress> Addresses { get; private set; }
     public List<UserRole> Roles { get; private set; }
     public List<UserToken> Tokens { get; private set; }
+
+
+    public static User Register(string phoneNumber, string password, IUserDomainService domainService)
+    {
+        return new User("", "", phoneNumber, "", password, Gender.نامشخص, domainService);
+    }
 }
 

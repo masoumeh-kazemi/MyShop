@@ -1,0 +1,40 @@
+﻿@page
+@model Shop.RazorPage.Pages.Auth.RegisterModel
+@{
+    Layout = "Shared/_AuthLayout";
+        
+}
+<div class="container">
+    <div class="auth-wrapper">
+        <div class="auth-form shadow-around">
+            <div class="site-logo">
+                <a href="#">
+                    <img src="/assets/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="auth-form-title">
+                ثبت نام
+            </div>
+            <form method="post">
+                <div>
+                    @Html.EditorFor(m=>m.PhoneNumber)
+                </div>
+                <div>
+                    @Html.EditorFor(m=>m.Password)
+                </div>
+
+                <div class="form-element-row text-left">
+                    <button class="btn-element btn-info-element">
+                        <i class="fad fa-sign-in-alt"></i>
+                        ورود به همتا
+                    </button>
+                </div>
+
+            </form>
+            <div class="auth-form-footer">
+                <span>کاربر جدید هستید؟</span>
+                <a href="#" class="link--with-border-bottom">ثبت نام در همتا</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Shop.Domain.UserAgg;
 
 namespace Shop.Infrastructure.Persistent.EF;
 
@@ -21,4 +22,7 @@ public class ShopContext : DbContext
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ShopContext).Assembly);
         base.OnModelCreating(modelBuilder);
     }
+
+
+    public DbSet<User> Users { get; set; }
 }

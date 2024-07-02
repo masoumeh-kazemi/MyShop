@@ -123,6 +123,101 @@ namespace Shop.Infrastructure.Migrations
                     b.ToTable("Role", "role");
                 });
 
+            modelBuilder.Entity("Shop.Domain.SellerAgg.Seller", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("LastUpdate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("NationalCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ShopName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NationalCode")
+                        .IsUnique();
+
+                    b.ToTable("Sellers", "seller");
+                });
+
+            modelBuilder.Entity("Shop.Domain.SiteEntities.Banner", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ImageName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Link")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("Position")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Banner");
+                });
+
+            modelBuilder.Entity("Shop.Domain.SiteEntities.Slider", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ImageName")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
+
+                    b.Property<string>("Link")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Slider");
+                });
+
             modelBuilder.Entity("Shop.Domain.UserAgg.User", b =>
                 {
                     b.Property<long>("Id")
@@ -167,10 +262,6 @@ namespace Shop.Infrastructure.Migrations
                         .HasColumnType("nvarchar(11)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Email")
-                        .IsUnique()
-                        .HasFilter("[Email] IS NOT NULL");
 
                     b.HasIndex("PhoneNumber")
                         .IsUnique();
@@ -274,9 +365,6 @@ namespace Shop.Infrastructure.Migrations
 
                     b.OwnsMany("Shop.Domain.ProductAgg.ProductImage", "Images", b1 =>
                         {
-                            b1.Property<long>("ProductId")
-                                .HasColumnType("bigint");
-
                             b1.Property<long>("Id")
                                 .ValueGeneratedOnAdd()
                                 .HasColumnType("bigint");
@@ -291,10 +379,15 @@ namespace Shop.Infrastructure.Migrations
                                 .HasMaxLength(100)
                                 .HasColumnType("nvarchar(100)");
 
+                            b1.Property<long>("ProductId")
+                                .HasColumnType("bigint");
+
                             b1.Property<int>("Sequence")
                                 .HasColumnType("int");
 
-                            b1.HasKey("ProductId", "Id");
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("ProductId");
 
                             b1.ToTable("Images", "product");
 
@@ -304,9 +397,6 @@ namespace Shop.Infrastructure.Migrations
 
                     b.OwnsMany("Shop.Domain.ProductAgg.ProductSpecification", "Specifications", b1 =>
                         {
-                            b1.Property<long>("ProductId")
-                                .HasColumnType("bigint");
-
                             b1.Property<long>("Id")
                                 .ValueGeneratedOnAdd()
                                 .HasColumnType("bigint");
@@ -321,11 +411,16 @@ namespace Shop.Infrastructure.Migrations
                                 .HasMaxLength(100)
                                 .HasColumnType("nvarchar(100)");
 
+                            b1.Property<long>("ProductId")
+                                .HasColumnType("bigint");
+
                             b1.Property<string>("Value")
                                 .IsRequired()
                                 .HasColumnType("nvarchar(max)");
 
-                            b1.HasKey("ProductId", "Id");
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("ProductId");
 
                             b1.ToTable("Specifications", "product");
 
@@ -371,6 +466,49 @@ namespace Shop.Infrastructure.Migrations
                         });
 
                     b.Navigation("Permissions");
+                });
+
+            modelBuilder.Entity("Shop.Domain.SellerAgg.Seller", b =>
+                {
+                    b.OwnsMany("Shop.Domain.SellerAgg.SellerInventory", "Inventories", b1 =>
+                        {
+                            b1.Property<long>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("bigint");
+
+                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<long>("Id"));
+
+                            b1.Property<int>("Count")
+                                .HasColumnType("int");
+
+                            b1.Property<DateTime>("CreationDate")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<int?>("DiscountPercentage")
+                                .HasColumnType("int");
+
+                            b1.Property<int>("Price")
+                                .HasColumnType("int");
+
+                            b1.Property<long>("ProductId")
+                                .HasColumnType("bigint");
+
+                            b1.Property<long>("SellerId")
+                                .HasColumnType("bigint");
+
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("ProductId");
+
+                            b1.HasIndex("SellerId");
+
+                            b1.ToTable("Inventories", "seller");
+
+                            b1.WithOwner()
+                                .HasForeignKey("SellerId");
+                        });
+
+                    b.Navigation("Inventories");
                 });
 
             modelBuilder.Entity("Shop.Domain.UserAgg.User", b =>

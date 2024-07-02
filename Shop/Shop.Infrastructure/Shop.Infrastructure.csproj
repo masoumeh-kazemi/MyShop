@@ -8,8 +8,12 @@
 
   <ItemGroup>
     <Folder Include="Persistent.EF\CategoryAgg\" />
+    <Folder Include="Persistent.EF\SellerAgg\" />
     <Folder Include="Persistent.EF\ProductAgg\" />
     <Folder Include="Persistent.EF\RoleAgg\" />
+    <Folder Include="Persistent.EF\SiteEntities\Banners\" />
+    <Folder Include="Persistent.EF\SiteEntities\Repositories\" />
+    <Folder Include="Persistent.EF\SiteEntities\Sliders\" />
     <Folder Include="Persistent.EF\UserAgg\" />
   </ItemGroup>
 

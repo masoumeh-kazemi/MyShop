@@ -9,25 +9,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shop", "Shop", "{4ED7B541-D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.RazorPage", "Shop\Shop.RazorPage\Shop.RazorPage.csproj", "{A898B4E6-FC2F-4BC1-9D24-520054DA2251}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Application", "Common\Common.Application\Common.Application.csproj", "{DDC39B36-FD7B-419B-A699-4BCF02425649}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Application", "Common\Common.Application\Common.Application.csproj", "{DDC39B36-FD7B-419B-A699-4BCF02425649}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.AspNetCore", "Common\Common.AspNetCore\Common.AspNetCore.csproj", "{2D70A0CD-B418-4B1B-B908-53AF51E35D2B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.AspNetCore", "Common\Common.AspNetCore\Common.AspNetCore.csproj", "{2D70A0CD-B418-4B1B-B908-53AF51E35D2B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Query", "Common\Common.Query\Common.Query.csproj", "{63E85D35-86A4-4E7D-AD95-D70A3D0793AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Query", "Common\Common.Query\Common.Query.csproj", "{63E85D35-86A4-4E7D-AD95-D70A3D0793AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Domain", "Common\Common.Domain\Common.Domain.csproj", "{C2C414FD-F1D0-4DBC-85A2-775E692D0DEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Domain", "Common\Common.Domain\Common.Domain.csproj", "{C2C414FD-F1D0-4DBC-85A2-775E692D0DEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.Application", "Shop\Shop.Application\Shop.Application.csproj", "{6B970F09-2D29-437B-AF95-E4BD3B248BA9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.Application", "Shop\Shop.Application\Shop.Application.csproj", "{6B970F09-2D29-437B-AF95-E4BD3B248BA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.Domain", "Shop\Shop.Domain\Shop.Domain.csproj", "{DF8253D3-92C2-402F-A0CB-150A364DC6AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.Domain", "Shop\Shop.Domain\Shop.Domain.csproj", "{DF8253D3-92C2-402F-A0CB-150A364DC6AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.Query", "Shop\Shop.Query\Shop.Query.csproj", "{CB6C0C4F-594B-4062-8889-664C43D778B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.Query", "Shop\Shop.Query\Shop.Query.csproj", "{CB6C0C4F-594B-4062-8889-664C43D778B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.Infrastructure", "Shop\Shop.Infrastructure\Shop.Infrastructure.csproj", "{A19B90B3-48B7-439A-9002-3B646A1E9C2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.Infrastructure", "Shop\Shop.Infrastructure\Shop.Infrastructure.csproj", "{A19B90B3-48B7-439A-9002-3B646A1E9C2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.Presentation.Facade", "Shop\Shop.Presentation.Facade\Shop.Presentation.Facade.csproj", "{5D87BFDC-7C47-4E36-AABC-B22F9A8E9030}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.Presentation.Facade", "Shop\Shop.Presentation.Facade\Shop.Presentation.Facade.csproj", "{5D87BFDC-7C47-4E36-AABC-B22F9A8E9030}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.Config", "Shop\Shop.Config\Shop.Config.csproj", "{E22FEDE2-C81F-4EA3-94CF-078C1547CEC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.Config", "Shop\Shop.Config\Shop.Config.csproj", "{E22FEDE2-C81F-4EA3-94CF-078C1547CEC4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

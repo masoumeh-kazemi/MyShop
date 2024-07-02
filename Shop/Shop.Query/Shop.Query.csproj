@@ -8,7 +8,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Common.Query\Common.Query.csproj" />
-    <ProjectReference Include="..\Shop.Domain\Shop.Domain.csproj" />
+    <ProjectReference Include="..\Shop.Infrastructure\Shop.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Users\GetByPhoneNumber\" />
+    <Folder Include="Users\DTOs\" />
   </ItemGroup>
 
 </Project>
