@@ -1,4 +1,25 @@
-﻿.text-left {
+﻿.form-element-row {
+    margin-bottom: 15px;
+}
+.form-element-row .form-element-with-icon {
+    position: relative;
+}
+.form-element-row .input-element {
+    width: 100%;
+    border: 1px solid #eee;
+    border-radius: 7px;
+    line-height: 20px;
+    padding: 15px;
+}
+
+.form-element-row .select-element {
+    width: 100%;
+    border: 1px solid #eee;
+    border-radius: 7px;
+    line-height: 20px;
+    padding: 15px;
+}
+.text-left {
     text-align: left !important
 }
 .text-right {

@@ -1,4 +1,4 @@
-﻿function Success(title, description, isReload = false) {
+﻿ function Success(title, description, isReload = false) {
     if (title == null || title == "undefined") {
         title = "عملیات با موفقیت انجام شد";
     }

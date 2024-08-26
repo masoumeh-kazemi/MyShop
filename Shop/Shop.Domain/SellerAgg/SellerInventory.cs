@@ -21,4 +21,15 @@ public class SellerInventory : BaseEntity
         DiscountPercentage = discountPercentage;
     }
 
+    public void Edit(int count, int price, int? discountPercentage = null)
+    {
+        Count = count;
+        Price = price;
+        DiscountPercentage = discountPercentage;
+    }
+
+    public void DecreaseCount(int count)
+    {
+          Count -= count;
+    }
 }

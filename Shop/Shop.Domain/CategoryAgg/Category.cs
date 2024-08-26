@@ -26,4 +26,20 @@ public class Category : AggregateRoot
     public SeoData SeoData { get; private set; }
     public long? ParentId { get; private set; }
     public List<Category> Childs { get; private set; }
+
+
+    public void Edit(string title, string slug, SeoData seoData)
+    {
+        Title = title;
+        Slug = slug;
+        SeoData = seoData;
+    }
+     
+    public void AddChild(long parentId, string title, string slug, SeoData seoData, ICategoryDomainService domainService)
+    {
+        Childs.Add(new Category(title, slug, seoData, domainService)
+        {
+            ParentId = parentId
+        });
+    }
 }

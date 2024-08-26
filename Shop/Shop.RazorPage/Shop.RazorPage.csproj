@@ -10,24 +10,42 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Pages\Shared\_ProductCart.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CookieManager" Version="2.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.31" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.20">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="UAParser" Version="3.1.47" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\SellerPanel\" />
-    <Folder Include="Pages\Profile\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Common.AspNetCore\Common.AspNetCore.csproj" />
     <ProjectReference Include="..\Shop.Config\Shop.Config.csproj" />
     <ProjectReference Include="..\Shop.Infrastructure\Shop.Infrastructure.csproj" />
     <ProjectReference Include="..\Shop.Presentation.Facade\Shop.Presentation.Facade.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\Shared\_ProductCart.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\Shared\_ProductCart.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Pages\Admin\Shared\_ProductCart.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Pages\Infrastructure\CookieUtils\" />
   </ItemGroup>
 
 </Project>

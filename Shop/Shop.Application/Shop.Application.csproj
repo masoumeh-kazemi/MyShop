@@ -7,12 +7,33 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Categories\" />
-    <Folder Include="Orders\" />
-    <Folder Include="Products\" />
-    <Folder Include="Sellers\" />
-    <Folder Include="SiteEntitie\Banners\" />
-    <Folder Include="SiteEntitie\Sliders\" />
+    <Folder Include="Categories\Create\" />
+    <Folder Include="Categories\Edit\" />
+    <Folder Include="Categories\AddChild\" />
+    <Folder Include="Orders\Create\" />
+    <Folder Include="Orders\Delete\" />
+    <Folder Include="Orders\IncreaseItem\" />
+    <Folder Include="Orders\Checkout\" />
+    <Folder Include="Orders\Finally\" />
+    <Folder Include="Products\Create\" />
+    <Folder Include="Products\Edit\" />
+    <Folder Include="Products\Galleries\Add\" />
+    <Folder Include="Products\Galleries\Delete\" />
+    <Folder Include="Roles\Edit\" />
+    <Folder Include="Sellers\Create\" />
+    <Folder Include="Sellers\Inventories\Edit\" />
+    <Folder Include="SiteEntities\Banners\Edit\" />
+    <Folder Include="SiteEntities\Sliders\Create\" />
+    <Folder Include="SiteEntities\Sliders\Edit\" />
+    <Folder Include="Users\Addresses\Create\" />
+    <Folder Include="Users\Addresses\Edit\" />
+    <Folder Include="Users\Addresses\SetActiveAddress\" />
+    <Folder Include="Users\Create\" />
+    <Folder Include="Users\Edit\" />
+    <Folder Include="Users\AddToken\" />
+    <Folder Include="Users\DeleteToken\" />
+    <Folder Include="Users\EditProfile\" />
+    <Folder Include="Users\ChangePassword\" />
   </ItemGroup>
 
   <ItemGroup>

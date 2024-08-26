@@ -40,10 +40,50 @@ public class Product : AggregateRoot
     public List<ProductSpecification> Specifications { get; private set; }
 
 
+    public void Edit(string title, string description, long categoryId, long subCategoryId
+        , long? secondarySubCategoryId, IProductDomainService domainService, string slug, SeoData seoData)
+    {
+        Title = title;
+        Description = description;
+        CategoryId = categoryId;
+        SubCategoryId = subCategoryId;
+        SecondarySubCategoryId = secondarySubCategoryId;
+        Slug = slug;
+        SeoData = seoData;
+    }
+
     public void SetSpecification(List<ProductSpecification> specifications)
     {
         specifications.ForEach(f => f.ProductId = Id);
         Specifications = specifications;
+    }
+
+    public void SetImageName(string imageName)
+    {
+        ImageName = imageName;
+    }
+
+
+    public void AddImageGallery(ProductImage productImage)
+    {
+        productImage.ProductId = Id;
+        Images.Add(productImage);
+    }
+
+    public void DeleteImageGallery(ProductImage productImage)
+    {
+        Images.Remove(productImage);
+    }
+
+    public void DeleteImageGallery(long productImageId)
+    {
+        var productImage = Images.FirstOrDefault(f => f.Id == productImageId);
+        if (productImage == null)
+        {
+            throw new NullOrEmptyDomainDataException();
+        }
+
+        Images.Remove(productImage);
     }
 }
 

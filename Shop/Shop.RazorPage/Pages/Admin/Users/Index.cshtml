@@ -1,0 +1,68 @@
+﻿@page
+@model Shop.RazorPage.Pages.Admin.Users.IndexModel
+@{
+    ViewData["title"] = "مدیریت کاربران";
+    ViewData["selected"] = "users";
+
+
+}
+<h3>@ViewData["title"]</h3>
+
+<form class="card shadow-lg " method="get">
+    <div class="card-header text-left">
+        <a asp-page="" class="btn btn-danger btn-sm">حذف فیلتر</a>
+        <button type="submit" class="btn btn-primary btn-sm">فیلتر</button>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <label>شناسه کاربر</label>
+                <input type="number" asp-for="@Model.FilterParam.Id" data-val="false" class="form-control" />
+            </div>
+            <div class="col-md-4">
+                <label> ایمیل کاربر</label>
+                <input type="text" asp-for="@Model.FilterParam.Email" data-val="false" class="form-control" />
+            </div>
+            <div class="col-md-4">
+                <label>موبایل</label>
+                <input type="text" asp-for="@Model.FilterParam.PhoneNumber" data-val="false" class="form-control" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<a asp-page="Add" class="btn btn-success mb-2">افزودن کاربر</a>
+<div class="table-responsive  card card-body p-0">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>شماره کاربری</th>
+                <th>نام و نام خانوادگی</th>
+                <th>ایمیل</th>
+                <th>شماره تلفن</th>
+                <th>عملیات</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.Users.Data)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name @item.Family</td>
+                <td>@item.Email</td>
+                <td>@item.PhoneNumber</td>
+                <td>
+                    <a class="btn btn-primary" asp-page="Edit" asp-route-id = "@item.Id">ویرایش</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+        
+        @if (Model.Users.Data.Any() == false)
+        {
+            <tr>
+                <td colspan="5" class="text-center">موردی برای نمایش وجود ندارد</td>
+            </tr>
+        }
+    </table>
+</div>

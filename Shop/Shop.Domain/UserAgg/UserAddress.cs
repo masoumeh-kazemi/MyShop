@@ -32,5 +32,32 @@ public class UserAddress :  BaseEntity
     public string Name { get; private set; }
     public string Family { get; private set; }
     public string NationalCode { get; private set; }
-    public bool ActiveAddress { get; private set; }
+    public bool ActiveAddress { get; private set; } = false;
+
+
+
+    public void SetActive()
+    {
+        ActiveAddress = true;
+
+    }
+    public void SetDeActive()
+    {
+        ActiveAddress = false;
+    }
+
+
+    public void Edit(string shire, string city, string postalCode, string postalAddress, string phoneNumber, string name,
+        string family, string nationalCode)
+    {
+        Shire = shire;
+        City = city;
+        PostalCode = postalCode;
+        PostalAddress = postalAddress;
+        PhoneNumber = new PhoneNumber(phoneNumber);
+        Name = name;
+        Family = family;
+        NationalCode = nationalCode;
+
+    }
 }

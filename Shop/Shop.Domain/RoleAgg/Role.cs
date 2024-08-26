@@ -19,4 +19,15 @@ public class Role : AggregateRoot
         Title = title;
         Permissions = permissions;
     }
+
+
+    public void Edit(string title)
+    {
+        Title = title;
+    }
+
+    public void SetRolePermission(List<RolePermission> rolePermissions)
+    {
+        Permissions = rolePermissions;
+    }
 }

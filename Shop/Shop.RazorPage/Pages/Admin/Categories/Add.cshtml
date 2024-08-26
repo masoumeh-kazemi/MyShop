@@ -1,0 +1,22 @@
+﻿@page "{parentId?}"
+@model Shop.RazorPage.Pages.Admin.Categories.AddModel
+@{
+    ViewData["title"] = "ویرایش دسته بندی";
+    ViewData["selected"] = "products_categories";
+}
+
+<form method="post" class="card">
+    <div class="row card-body">
+        <div class="col-md-6">
+            @Html.EditorFor(m => m.Title)
+        </div>
+        <div class="col-md-6">
+            @Html.EditorFor(m => m.Slug)
+        </div>
+            @Html.EditorFor(m => m.SeoData)
+    </div>
+    <div class="card-footer text-left">
+        <cancel></cancel>
+        <submit></submit>
+    </div>
+</form>

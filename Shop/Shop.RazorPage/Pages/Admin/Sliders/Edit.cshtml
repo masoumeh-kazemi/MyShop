@@ -1,0 +1,26 @@
+﻿@page "{id}"
+@model Shop.RazorPage.Pages.Admin.Sliders.EditModel
+@{
+    ViewData["title"] = "ویرایش اسلایدر";
+    ViewData["selected"] = "sliders";
+
+}
+
+<form method="post" class="card" enctype="multipart/form-data">
+    <div class="row card-body">
+        <div class="col-md-6">
+            @Html.EditorFor(f=>f.Title)
+        </div>
+        <div class="col-md-6">
+            @Html.EditorFor(m=>m.Link)
+        </div>
+
+        <div class="col-md-6">
+            @Html.EditorFor(m=>m.ImageFile)
+        </div>
+    </div>
+    <div class="card-footer text-left">
+        <cancel></cancel>
+        <submit></submit>
+    </div>
+</form>

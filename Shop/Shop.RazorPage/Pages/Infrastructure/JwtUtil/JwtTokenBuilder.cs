@@ -11,7 +11,8 @@ public class JwtTokenBuilder
     public static string BuildToken(UserDto user, IConfiguration configuration)
     {
 
-        var roles = user.UserRoles.Select(f => f.RoleTitle);
+        //var roles = user.UserRoles.Select(f => f.RoleTitle);
+        var roles = user.RoleTitls;
 
         var claims = new List<Claim>()
         {

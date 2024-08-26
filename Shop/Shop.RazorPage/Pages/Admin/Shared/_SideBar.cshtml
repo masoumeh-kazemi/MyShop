@@ -18,15 +18,15 @@
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation" data-icon-style="lines">
             <li class="nav-item @(selected=="index"?"active":null)">
                 <a href="/admin">
-                    <i class="menu-livicon" data-icon="desktop"></i>
-                    <span class="menu-title" data-i18n="File Manager">داشبورد</span>
+                    <i class="menu-livicon" data-icon="Dashboard"></i>
+                    <span class="menu-title" data-i18n="Dashboard">داشبورد</span>
                 </a>
             </li>
 
             <li class="nav-item ">
                 <a href="javascript:void(0)">
-                    <i class="menu-livicon" data-icon="Dashboard"></i>
-                    <span class="menu-title" data-i18n="Dashboard">مدیریت محصولات</span>
+                    <i class="menu-livicon" data-icon="desktop"></i>
+                    <span class="menu-title" data-i18n="File Manager">مدیریت محصولات</span>
                 </a>
                 <ul class="menu-content">
                     <li class="@(selected=="products_product"?"active":null)">
@@ -79,6 +79,12 @@
                 <a href="/admin/sliders">
                     <i class="menu-livicon" data-icon="adjust"></i>
                     <span class="menu-title" data-i18n="File Manager">مدیریت  اسلایدر ها</span>
+                </a>
+            </li>
+            <li class="nav-item @(selected=="sellers"?"active":null)">
+                <a href="/admin/banners">
+                    <i class="menu-livicon" data-icon="box"></i>
+                    <span class="menu-title" data-i18n="File Manager">مدیریت فروشنده ها</span>
                 </a>
             </li>
         </ul>

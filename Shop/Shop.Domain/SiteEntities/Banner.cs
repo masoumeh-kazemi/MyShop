@@ -17,4 +17,15 @@ public class Banner : BaseEntity
         ImageName = imageName;
         Position = position;
     }
+
+    public void Edit(string link,BannerPosition position)
+    {
+        Link = link;
+        Position = position;
+    }
+
+    public void SetImageName(string imageName)
+    {
+        ImageName = imageName;
+    }
 }

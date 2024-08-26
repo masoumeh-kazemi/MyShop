@@ -1,0 +1,18 @@
+﻿@model Shop.RazorPage.Pages.ViewModel.AddImageGalleryViewModel
+
+<form method="post" class="card" data-ajax ="true" enctype="multipart/form-data"> 
+    <div class="row card-body">
+        <div class="col-md-6">
+            @Html.EditorFor(m => m.ImageFile)
+        </div>
+        <div class="col-md-6">
+            @Html.EditorFor(m => m.Sequence)
+        </div>
+    </div>
+    <div class="card-footer text-left">
+
+        <cancel-button></cancel-button>
+
+        <submit-button></submit-button>
+    </div>
+</form>

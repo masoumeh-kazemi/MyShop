@@ -11,6 +11,9 @@ namespace Shop.RazorPage.Pages.Auth
     {        
         [Display(Name = "شماره تلفن")]
         [Required(ErrorMessage = "{0} را وارد کنید")]
+        [MinLength(11, ErrorMessage = "شماره تلفن باید 11 کارکتر باشد")]
+        [MaxLength(11, ErrorMessage = "شماره تلفن باید 11 کارکتر باشد")]
+
         public string PhoneNumber { get; set; }
 
         [Display(Name = "کلمه  عبور")]

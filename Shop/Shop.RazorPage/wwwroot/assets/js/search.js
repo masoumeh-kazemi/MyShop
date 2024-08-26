@@ -1,5 +1,5 @@
 ﻿function filterCategory(slug) {
-    console.log("salam");
+  
     $("#serachForm").submit();
 }
 

@@ -1,0 +1,51 @@
+﻿@page "{handler?}"
+@using Common.Application._Utilities
+@model Shop.RazorPage.Pages.SellerPanel.Inventories.IndexModel
+@{
+    Layout = "Shared/_SellerLayout";
+    ViewData["title"] = "محصولات";
+        ViewData["selected"] = "inventories";
+    
+}
+
+
+<a asp-page="Add" class="btn btn-success mb-2">افزودن محصول</a>
+<div class="table card">
+    <table class="table-bordered card-body">
+        <thead>
+        <tr>
+            <th>تصویر محصول</th>
+            <th>عنوان محصول</th>
+            <th>تعداد موجود</th>
+            <th>قیمت</th>
+            <th>درصد تخفیف محصول</th>
+            <th>عملیات</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.Inventories)
+        {
+            <tr>
+                <td>
+                    <img src="@Directories.GetProductImage(item.ProductImageName)" class="height-100"/>
+                </td>
+                <td>@item.ProductTitle</td>
+                <td>@item.Count</td>
+                <td>@item.Price</td>
+                <td>@item.DiscountPercentage</td>
+                <td>
+                        <a onclick="OpenModal('@Url.Page("Index", "ShowEditPage", new{inventoryId=@item.Id})','defaultModal','ویرایش محصول')" class="btn btn-primary">ویرایش</a>
+
+                </td>
+            </tr>
+        }
+        </tbody>
+        @if (!Model.Inventories.Any())
+        {
+            <tr>
+                <td colspan="6" class="text-center">محصولی برای نمایش وجود ندارد</td>
+            </tr>
+        }
+
+    </table>
+</div>

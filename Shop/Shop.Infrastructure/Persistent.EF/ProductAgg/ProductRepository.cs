@@ -8,4 +8,9 @@ public class ProductRepository : BaseRepository<Product>,IProductRepository
     public ProductRepository(ShopContext context) : base(context)
     {
     }
+
+    public void Delete(Product product)
+    {
+        Context.Products.Remove(product);
+    }
 }

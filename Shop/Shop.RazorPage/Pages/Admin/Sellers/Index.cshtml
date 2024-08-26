@@ -1,0 +1,90 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Shop.Domain.SellerAgg
+@model Shop.RazorPage.Pages.Admin.Sellers.IndexModel
+@{
+}
+
+@{
+    ViewData["title"] = "مدیریت فروشنده ها";
+    ViewData["selected"] = "sellers";
+
+}
+
+
+<form class="card shadow-lg " method="get">
+    <div class="card-header text-left">
+        <a asp-page="" class="btn btn-danger btn-sm">حذف فیلتر</a>
+        <button type="submit" class="btn btn-primary btn-sm">فیلتر</button>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <label>کد ملی فروشنده</label>
+                <input type="number" asp-for="@Model.FilterParam.NationalCode" data-val="false" class="form-control" />
+            </div>
+            <div class="col-md-6">
+                <label>نام فروشگاه</label>
+                <input type="text" asp-for="@Model.FilterParam.ShopName" data-val="false" class="form-control" />
+            </div>
+
+        </div>
+    </div>
+</form>
+
+
+<h3>@ViewData["title"]</h3>
+
+<div class="table-responsive card">
+    <table class="table table-bordered card-body">
+        <thead>
+        <tr>
+            <th>نام فروشگاه</th>
+            <th>شماره کاربری</th>
+            <th>کد ملی</th>
+            <th>وضعیت</th>
+            <th>عملیات</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.Sellers.Data)
+        {
+            <tr>
+                <td>@item.ShopName</td>
+                <td>@item.UserId</td>
+                <td>@item.NationalCode</td>
+                @switch (@item.Status)
+                {
+                    case SellerStatus.Accepted:
+                        <td>پذیرفته شده</td>
+                        break;
+
+                    case SellerStatus.Rejected:
+                        <td>رد شده</td>
+                        break;
+
+                    case SellerStatus.New:
+                        <td>جدید</td>
+                        break;
+
+                    case SellerStatus.InActive:
+                        <td>در حال فعالیت</td>
+                        break;
+
+                }
+                <td>
+                    <a class="btn btn-primary" asp-page="Edit" asp-route-id="@item.Id">ویرایش</a>
+                </td>
+
+            </tr>
+        }
+        @if (!Model.Sellers.Data.Any())
+        {
+            <tr>
+                <td colspan="5" class="text-center">موردی برای نمایش وجود ندارد</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+<partial name="Admin/Shared/_Pagination" model="@Model.Sellers"/>

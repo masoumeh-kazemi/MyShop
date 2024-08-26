@@ -7,8 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Categories\" />
+    <Folder Include="Orders\" />
+    <Folder Include="Products\" />
     <Folder Include="Roles\" />
-    <Folder Include="Users\" />
+    <Folder Include="SiteEntities\ShippingMethods\" />
+    <Folder Include="SiteEntities\Sliders\" />
   </ItemGroup>
 
   <ItemGroup>

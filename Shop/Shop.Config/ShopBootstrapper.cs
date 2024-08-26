@@ -1,7 +1,9 @@
 ﻿using System.Reflection;
 using Common.Application;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Shop.Application.Categories;
+using Shop.Application.Categories.AddChild;
 using Shop.Application.Products;
 using Shop.Application.Sellers;
 using Shop.Application.Users;
@@ -28,6 +30,7 @@ public static class ShopBootstrapper
 
         services.AddMediatR(cfg =>
             cfg.RegisterServicesFromAssemblies(typeof(GetUserByPhoneNumberQuery).GetTypeInfo().Assembly));
+        services.AddValidatorsFromAssembly(typeof(AddChildCategoryCommandValidator).Assembly);
 
         services.AddScoped<IUserDomainService, UserDomainService>();
         services.AddScoped<IProductDomainService, ProductDomainService>();

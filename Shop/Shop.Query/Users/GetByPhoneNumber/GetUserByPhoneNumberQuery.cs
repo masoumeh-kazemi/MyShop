@@ -1,6 +1,7 @@
 ﻿using Common.Query;
 using Microsoft.EntityFrameworkCore;
 using Shop.Infrastructure.Persistent.EF;
+using Shop.Query.Users;
 using Shop.Query.Users.DTOs;
 
 namespace Shop.Query.Users.GetByPhoneNumber;
@@ -19,12 +20,14 @@ public class GetUserByPhoneNumberQueryHandler : IQueryHandler<GetUserByPhoneNumb
     public async Task<UserDto> Handle(GetUserByPhoneNumberQuery request, CancellationToken cancellationToken)
     {
         var user = await _shopContext.Users
+            .Include(f=>f.Roles)
             .FirstOrDefaultAsync(f => f.PhoneNumber == request.PhoneNumber, cancellationToken);
         if (user == null)
         {
             return null;
         }
 
-        return user.MapToDto();
+        var result = user.MapToDto();
+        return result.SetRoleTitle(_shopContext);
     }
 }

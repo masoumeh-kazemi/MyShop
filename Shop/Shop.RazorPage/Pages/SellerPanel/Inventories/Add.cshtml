@@ -1,0 +1,38 @@
+﻿@page
+@using Shop.Presentation.Facade.Products
+@using Shop.Query.Products.DTOs
+@model Shop.RazorPage.Pages.SellerPanel.Inventories.AddModel
+@inject IProductFacade ProductFacade
+@{
+    var products = await ProductFacade.GetList();
+}
+<form method="post" class="card">
+    
+    <div class="row card-body">
+        <div class="col-md-6">
+            <label>عنوان محصول</label>
+            <select asp-for="ProductId" class="form-control select2">
+                @foreach (var item in products)
+                {
+                    <option value="@item.Id">@item.Title</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-6">
+            @Html.EditorFor(m => m.Count)
+        </div>
+        <div class="col-md-6">
+            @Html.EditorFor(m => m.Price)
+        </div>
+@*        <div class="col-md-6">
+            @Html.EditorFor(m => m.DiscountPercentage)
+        </div>*@
+    </div>
+    <div class="card-footer text-left">
+        <cancel></cancel>
+        <submit></submit>
+    </div>
+</form>
+
+                    
+                    

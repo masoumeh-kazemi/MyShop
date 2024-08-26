@@ -30,4 +30,26 @@ public class Seller : AggregateRoot
         //    throw new InvalidDomainDataException("اطلاعات امعتبر است");
     }
 
+    public void Edit(string shopName, string nationalCode, SellerStatus status, ISellerDomainService domainService)
+    {
+        ShopName = shopName;
+        NationalCode = nationalCode;
+        Status = status;
+
+    }
+
+    public void AddInventory(SellerInventory inventory)
+    {
+        inventory.SellerId = Id;
+        Inventories.Add(inventory);
+    }
+
+    public void EditInventory(long inventoryId, int count, int price, int? discountPercentage)
+    {
+        var inventory = Inventories.FirstOrDefault(f => f.Id == inventoryId);
+        if (inventory == null)
+            throw new NullOrEmptyDomainDataException();
+
+        inventory.Edit(count, price, discountPercentage);
+    }
 }

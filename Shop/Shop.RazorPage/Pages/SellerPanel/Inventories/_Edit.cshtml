@@ -1,0 +1,37 @@
+﻿@using Shop.Presentation.Facade.Products
+@model Shop.RazorPage.Pages.ViewModel.EditSellerInventoryViewModel
+@inject IProductFacade ProductFacade;
+@{
+    var products = await ProductFacade.GetList();
+}
+<form method="post" class="card" data-ajax="true" asp-page="Index" asp-page-handler="EditInventory">
+    <input type="hidden" value="@Model.SellerId" name="sellerId"/>
+    <input type="hidden" value="@Model.InventoryId" name="inventoryId"/>
+
+    <div class="row card-body">
+        <div class="col-md-6">
+            <label>عنوان محصول</label>
+            <select asp-for="ProductId" class="form-control select2">
+                @foreach (var item in products)
+                {
+                    <option selected="@(Model.ProductId == item.Id)" value="@item.Id">@item.Title</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-6">
+            @Html.EditorFor(m => m.Count)
+        </div>
+        <div class="col-md-6">
+            @Html.EditorFor(m => m.Price)
+        </div>
+@*        <div class="col-md-6">
+            @Html.EditorFor(m => m.DiscountPercentage)
+        </div>*@
+    </div>
+    <div class="card-footer text-left">
+        <cancel></cancel>
+        <submit></submit>
+    </div>
+</form>
+
+

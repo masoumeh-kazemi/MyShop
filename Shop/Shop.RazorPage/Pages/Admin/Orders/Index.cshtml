@@ -1,0 +1,115 @@
+﻿@page
+@using Common.Application._Utilities
+@using FShop.RazorPage.TagHelpers
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Shop.Domain.OrderAgg
+@using Shop.RazorPage.Pages.Infrastructure.Utils
+@model Shop.RazorPage.Pages.Admin.Orders.IndexModel
+@{
+    ViewData["title"] = "مدیریت سفارشات";
+    ViewData["selected"] = "orders";
+}
+
+<form class="card shadow-lg " method="get">
+    <div class="card-header text-left">
+        <a asp-page="" class="btn btn-danger btn-sm">حذف فیلتر</a>
+        <button type="submit" class="btn btn-primary btn-sm">فیلتر</button>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <label>شناسه کاربر</label>
+                <input type="number" asp-for="@Model.FilterParam.UserId" class="form-control" />
+            </div>
+            <div class="col-md-6">
+                <label>وضعیت سفارش</label>
+                <select asp-for="@Model.FilterParam.Status" class="select2 form-control">
+                    <option value="null">همه</option>
+                    <option value="@OrderStatus.Finally">پرداخت شده</option>
+                    <option value="@OrderStatus.Rejected">مرجوعی</option>
+                    <option value="@OrderStatus.Pending">در انتظار پرداخت</option>
+                    <option value="@OrderStatus.Shipping">ارسال شده</option>
+
+                </select>
+            </div>
+            <div class="col-md-6 mt-2">
+                <label>از تاریخ</label>
+                <input type="text" class="form-control select-date" autocomplete="off" id="start_date" name="startDate" value="@Model.FilterParam.StartDate.ToPersianDate()" class="form-control" />
+            </div>
+
+            <div class="col-md-6 mt-2">
+                <label>تا تاریخ</label>
+                <input type="text" class="form-control select-date" autocomplete="off" id="end_date" name="startDate" value="@Model.FilterParam.StartDate.ToPersianDate()" class="form-control" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<h3>@ViewData["title"]</h3>
+<div class="table-responsive card card-body p-0">
+    <table class="table table-bordered mb-0">
+        <thead>
+            <tr>
+                <th>شماره سفارش</th>
+                <th>شناسه کاربر</th>
+                <th>استان-شهر</th>
+                <th>تعداد محصولات</th>
+                <th>وضعیت</th>
+                <th>مبلغ</th>
+                <th>عملیات</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.FilterResult.Data.OrderBy(f=>f.CreationDate))
+            {
+                <tr>
+
+                    <td>@item.Id</td>
+                    <td>@item.UserId</td>
+                    <td>@item.Shire @item.City</td>
+                    <td>@item.TotalItemCount</td>
+
+                    @switch (item.Status)
+                    {
+                        case OrderStatus.Pending:
+                            <td>در انتظار پرداخت</td>
+                            break;
+                        case OrderStatus.Finally:
+                            <td>پرداخت شده</td>
+                            break;
+
+                        case OrderStatus.Shipping:
+                            <td>ارسال شده</td>
+                            break;
+                        case OrderStatus.Rejected:
+                            <td>مرجوع شده</td>
+                            break;
+                    }
+
+                    <td> @item.TotalPrice.?ToString("#,0") </td>
+                    <td>
+                        <a asp-page="show" asp-route-id="@item.Id" class="btn btn-primary btn-sm">نمایش</a>
+                    </td>
+                </tr>
+
+
+            }
+
+        </tbody>
+    </table>
+</div>
+
+<partial name = "Admin/Shared/_Pagination" model="Model.FilterResult" />
+                    
+@section Scripts
+    {
+    <script>
+        $(".select-date").datepicker({
+            dateFormat: "yy/mm/dd",
+            showOtherMonths: true,
+            selectOtherMonths: false
+        });
+    </script>
+
+                    }

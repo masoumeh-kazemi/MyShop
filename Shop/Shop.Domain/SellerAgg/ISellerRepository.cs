@@ -1,6 +1,18 @@
-﻿namespace Shop.Domain.SellerAgg;
+﻿using Common.Domain.Repository;
 
-public interface ISellerRepository
+namespace Shop.Domain.SellerAgg;
+
+public interface ISellerRepository : IBaseRepository<Seller>
 {
-    
+    Task<InventoryResult?> GetInventoryById(long id);
+
+}
+
+public class InventoryResult
+{
+    public long SellerId { get; set; }
+    public long ProductId { get; set; }
+    public int Count { get; set; }
+    public int Price { get; set; }
+    public int? DiscountPercentage { get; set; }
 }

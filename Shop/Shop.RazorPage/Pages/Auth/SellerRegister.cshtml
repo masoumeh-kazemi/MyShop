@@ -1,0 +1,39 @@
+﻿@page
+@model Shop.RazorPage.Pages.Auth.SellerRegisterModel
+@{
+    Layout = "Shared/_AuthLayout";
+}
+<div class="auth-wrapper">
+    <div class="auth-form shadow-around">
+        <div class="site-logo">
+            <a href="#">
+                <img src="/assets/images/logo.png" alt="logo">
+            </a>
+        </div>
+        <div class="auth-form-title">
+            ثبت نام فروشنده در همتا
+        </div>
+        <form method="post">
+            @Html.EditorFor(m=>m.NationalCode)
+            @Html.EditorFor(m=>m.ShopName)
+            <div class="form-element-row text-left">
+                <button class="btn-element btn-success-element">
+                    <i class="fad fa-user-edit"></i>
+                    ثبت نام فروشنده در همتا
+                </button>
+            </div>
+
+        </form>
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <div class="auth-form-footer">
+                <span>پیش از ثبت نام به عنوان فروشنده، ابتدا باید به عنوان کاربر ثبت نام کنید و سپس وارد شوید.</span>
+                <br/>
+                <a asp-page="Register" class="link--with-border-bottom">ثبت نام </a>
+                <br/>
+                <a asp-page="Login" class="link--with-border-bottom">وارد شدن</a>
+            </div>
+        }
+
+    </div>
+</div>

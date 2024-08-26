@@ -55,6 +55,31 @@ namespace Shop.Infrastructure.Migrations
                     b.ToTable("Categories", "dbo");
                 });
 
+            modelBuilder.Entity("Shop.Domain.OrderAgg.Order", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("LastUpdate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Orders", "order");
+                });
+
             modelBuilder.Entity("Shop.Domain.ProductAgg.Product", b =>
                 {
                     b.Property<long>("Id")
@@ -184,7 +209,31 @@ namespace Shop.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Banner");
+                    b.ToTable("Banners");
+                });
+
+            modelBuilder.Entity("Shop.Domain.SiteEntities.ShippingMethod", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<int>("Cost")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ShippingMethods");
                 });
 
             modelBuilder.Entity("Shop.Domain.SiteEntities.Slider", b =>
@@ -215,7 +264,7 @@ namespace Shop.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Slider");
+                    b.ToTable("Sliders");
                 });
 
             modelBuilder.Entity("Shop.Domain.UserAgg.User", b =>
@@ -318,6 +367,157 @@ namespace Shop.Infrastructure.Migrations
 
                     b.Navigation("SeoData")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Shop.Domain.OrderAgg.Order", b =>
+                {
+                    b.OwnsOne("Shop.Domain.OrderAgg.OrderAddress", "Address", b1 =>
+                        {
+                            b1.Property<long>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("bigint");
+
+                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<long>("Id"));
+
+                            b1.Property<string>("City")
+                                .IsRequired()
+                                .HasMaxLength(50)
+                                .HasColumnType("nvarchar(50)");
+
+                            b1.Property<DateTime>("CreationDate")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<string>("Family")
+                                .IsRequired()
+                                .HasMaxLength(100)
+                                .HasColumnType("nvarchar(100)");
+
+                            b1.Property<string>("Name")
+                                .IsRequired()
+                                .HasMaxLength(100)
+                                .HasColumnType("nvarchar(100)");
+
+                            b1.Property<string>("NationalCode")
+                                .IsRequired()
+                                .HasMaxLength(11)
+                                .HasColumnType("nvarchar(11)");
+
+                            b1.Property<long>("OrderId")
+                                .HasColumnType("bigint");
+
+                            b1.Property<string>("PhoneNumber")
+                                .IsRequired()
+                                .HasMaxLength(11)
+                                .HasColumnType("nvarchar(11)");
+
+                            b1.Property<string>("PostalAddress")
+                                .IsRequired()
+                                .HasMaxLength(100)
+                                .HasColumnType("nvarchar(100)");
+
+                            b1.Property<string>("PostalCode")
+                                .IsRequired()
+                                .HasMaxLength(40)
+                                .HasColumnType("nvarchar(40)");
+
+                            b1.Property<string>("Shire")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("OrderId")
+                                .IsUnique();
+
+                            b1.ToTable("Addresses", "order");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrderId");
+                        });
+
+                    b.OwnsMany("Shop.Domain.OrderAgg.OrderItem", "Items", b1 =>
+                        {
+                            b1.Property<long>("OrderId")
+                                .HasColumnType("bigint");
+
+                            b1.Property<long>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("bigint");
+
+                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<long>("Id"));
+
+                            b1.Property<int>("Count")
+                                .HasColumnType("int");
+
+                            b1.Property<DateTime>("CreationDate")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<int>("DiscountPrice")
+                                .HasColumnType("int");
+
+                            b1.Property<long>("InventoryId")
+                                .HasColumnType("bigint");
+
+                            b1.Property<int>("Price")
+                                .HasColumnType("int");
+
+                            b1.HasKey("OrderId", "Id");
+
+                            b1.ToTable("Items", "order");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrderId");
+                        });
+
+                    b.OwnsOne("Shop.Domain.OrderAgg.ValueObjects.OrderDiscount", "Discount", b1 =>
+                        {
+                            b1.Property<long>("OrderId")
+                                .HasColumnType("bigint");
+
+                            b1.Property<int>("DiscountAmount")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("DiscountTitle")
+                                .IsRequired()
+                                .HasMaxLength(50)
+                                .HasColumnType("nvarchar(50)");
+
+                            b1.HasKey("OrderId");
+
+                            b1.ToTable("Orders", "order");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrderId");
+                        });
+
+                    b.OwnsOne("Shop.Domain.OrderAgg.ValueObjects.OrderShippingMethod", "ShippingMethod", b1 =>
+                        {
+                            b1.Property<long>("OrderId")
+                                .HasColumnType("bigint");
+
+                            b1.Property<int>("ShippingCost")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("ShippingType")
+                                .IsRequired()
+                                .HasMaxLength(50)
+                                .HasColumnType("nvarchar(50)");
+
+                            b1.HasKey("OrderId");
+
+                            b1.ToTable("Orders", "order");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrderId");
+                        });
+
+                    b.Navigation("Address");
+
+                    b.Navigation("Discount");
+
+                    b.Navigation("Items");
+
+                    b.Navigation("ShippingMethod");
                 });
 
             modelBuilder.Entity("Shop.Domain.ProductAgg.Product", b =>

@@ -11,7 +11,6 @@
     <Folder Include="ProductAgg\Services\" />
     <Folder Include="RoleAgg\Enum\" />
     <Folder Include="SellerAgg\Services\" />
-    <Folder Include="OrderAgg\" />
     <Folder Include="SiteEntities\Enum\" />
     <Folder Include="UserAgg\Enum\" />
     <Folder Include="UserAgg\Services\" />

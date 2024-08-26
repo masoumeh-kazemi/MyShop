@@ -1,0 +1,36 @@
+﻿@model Shop.RazorPage.Pages.ViewModel.EditAddressViewModel
+<form method="post" class="card" data-ajax="true" asp-page="Index" asp-page-handler="EditUserAddress">
+    <input type="hidden" name="addressId" value="@Model.AddressId"/>
+    <div class="row card-body">
+        <div class="col-lg-6 mb-3">
+            @Html.EditorFor(m => m.Name)
+        </div>
+        <div class="col-lg-6 mb-3">
+            @Html.EditorFor(m => m.Family)
+        </div>
+        <div class="col-lg-6 mb-3">
+            @Html.EditorFor(m => m.NationalCode)
+        </div>
+        <div class="col-lg-6 mb-3">
+            @Html.EditorFor(m => m.PhoneNumber)
+        </div>
+        <div class="col-lg-6 mb-3">
+            @Html.EditorFor(m => m.Shire)
+        </div>
+        <div class="col-12 mb-3">
+            @Html.EditorFor(m => m.City)
+        </div>
+        <div class="col-12 mb-3">
+            @Html.EditorFor(m => m.PostalCode)
+        </div>
+        <div class="col-12 mb-3">
+            @Html.EditorFor(m => m.PostalAddress)
+        </div>
+
+
+    </div>
+    <div class="card-footer text-left">
+        <cancel></cancel>
+        <submit></submit>
+    </div>
+</form>

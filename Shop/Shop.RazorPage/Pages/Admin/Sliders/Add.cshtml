@@ -1,0 +1,29 @@
+﻿@page
+@model Shop.RazorPage.Pages.Admin.Sliders.AddModel
+@{
+    Layout = "Shared/_AdminLayout";
+}
+
+@{
+    ViewData["title"] = "افزودن اسلایدر";
+    ViewData["selected"] = "sliders";
+
+}
+
+
+<form method="post" class="card" enctype="multipart/form-data">
+    <div class="row card-body">
+        <div class="col-md-6">
+            @Html.EditorFor(m => m.Title)
+        </div>
+        <div class="col-md-6">
+            @Html.EditorFor(m => m.Link)
+        </div>
+        @Html.EditorFor(m => m.ImageFile)
+    </div>
+    <div class="card-footer text-left">
+
+        <cancel></cancel>
+        <submit></submit>
+    </div>
+</form>

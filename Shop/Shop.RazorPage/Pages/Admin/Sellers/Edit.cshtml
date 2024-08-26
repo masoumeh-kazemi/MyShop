@@ -1,0 +1,35 @@
+﻿@page "{id}"
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Shop.Domain.SellerAgg
+@using Shop.RazorPage.TagHelpers
+@model Shop.RazorPage.Pages.Admin.Sellers.EditModel
+@{
+    ViewData["title"] = "ویرایش فروشنده ها";
+
+    ViewData["selected"] = "sellers";
+
+}
+
+<form method="post" class="card">
+    <div class="row card-body">
+        <div class="col-md-6">
+            @Html.EditorFor(m=>m.ShopName)
+        </div>
+        <div class="col-md-6">
+            @Html.EditorFor(m=>m.NationalCode)
+        </div>
+        <div class="col-md-6">
+            <label>تغییر وضعیت</label>
+            <select asp-for="Status" class="form-control">
+                @foreach (var item in Enum.GetValues(typeof(SellerStatus)))
+                {
+                    <option selected="@Model.Status.Equals(@item)" value="@item">@item</option>
+                }
+            </select>
+        </div>
+    </div>
+    <div class="card-footer text-left">
+        <cancel></cancel>
+        <submit></submit>
+    </div>
+</form>

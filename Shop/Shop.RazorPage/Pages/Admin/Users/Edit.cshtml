@@ -1,0 +1,55 @@
+﻿@page "{id}"
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Shop.Presentation.Facade.Roles
+@using Shop.RazorPage.TagHelpers
+@model Shop.RazorPage.Pages.Admin.Users.EditModel
+@inject IRoleFacade _RoleFacade;
+@{
+    ViewData["title"] = "افزودن کاربر";
+    ViewData["selected"] = "users";
+    var roles = await _RoleFacade.GetList();
+}
+
+<form method="post" enctype="multipart/form-data" class="card">
+    <div class="row card-body">
+        <div class="col-md-6">
+            @Html.EditorFor(m=>m.Name)
+        </div>
+
+        <div class="col-md-6">
+            @Html.EditorFor(m=>m.Family)
+        </div>
+        <div class="col-md-6">
+            @Html.EditorFor(m=>m.PhoneNumber)
+        </div>
+        <div class="col-md-6">
+            @Html.EditorFor(m=>m.Email)
+        </div>
+        <div class="col-md-6">
+            @Html.EditorFor(m=>m.Gender)
+        </div>
+        <div class="col-md-6">
+            @Html.EditorFor(m=>m.IsActive)
+        </div>
+        <div class="col-md-6">
+            <div class="form-element-row">
+                <label>انتخاب نقش کاربر</label>
+                <select class="select2 form-control select-element" multiple="" asp-for="RoleIds">
+                    @foreach (var item in roles)
+                    {
+                        <option selected="" value="@item.Id">@item.Title</option>
+                    }
+                </select>
+
+            </div>
+        </div>
+        <div class="col-md-12">
+            @Html.EditorFor(m=>m.AvatarImage)
+        </div>
+
+    </div>
+    <div class="card-footer text-left">
+        <cancel></cancel>
+        <submit></submit>
+    </div>
+</form>

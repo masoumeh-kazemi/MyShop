@@ -1,0 +1,104 @@
+﻿@page
+@using Shop.Presentation.Facade.Categories
+@model Shop.RazorPage.Pages.Admin.Products.AddModel
+@inject ICategoryFacade CategoryFacade;
+@{
+    ViewData["title"] = "افزودن محصولات";
+    ViewData["selected"] = "products_product";
+    var categories = await CategoryFacade.GetByList();
+}
+
+<h3>@ViewData["title"]</h3>
+<form method="post" enctype="multipart/form-data">
+    <div class="row card-body">
+
+        <div class="col-md-6">
+            @Html.EditorFor(m=>m.Title)
+        </div>
+        <div class="col-md-6">
+            @Html.EditorFor(m=>m.Slug)
+        </div>
+        <div class="col-md-12">
+            @Html.EditorFor(m=>m.Description)
+        </div>
+            @Html.EditorFor(m=>m.SeoData)
+        <div class="col-md-4">
+            <label asp-for="CategoryId"></label>
+            <select class="form-control select2" asp-for="CategoryId">
+                <option value="0">انتخاب کنید</option>
+                @foreach (var item in categories)
+                {
+                    <option value="@item.Id">@item.Title</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label asp-for="SubCategoryId"></label>
+            <select class="form-control select2" asp-for="SubCategoryId">
+                @{
+                    var childCategories = await CategoryFacade
+                        .GetChildByParentId(Model.CategoryId);
+                }
+                <option value="0">انتخاب کنید</option>
+                @foreach (var item in childCategories)
+                {
+                    <option value="@item.Id">@item.Title</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label asp-for="SecondarySubCategoryId"></label>
+            <select class="form-control select2" asp-for="SecondarySubCategoryId">
+                @{
+                    var secondChildCategories = await CategoryFacade
+                        .GetChildByParentId(Model.SubCategoryId);
+                }
+                <option value="0">انتخاب کنید</option>
+                @foreach (var item in secondChildCategories)
+                {
+                    <option value="@item.Id">@item.Title</option>
+                }
+            </select>
+        </div>
+        
+        <div class="col-12">
+            @Html.EditorFor(m=>m.ImageFile)
+        </div>
+        
+        <div class="col-md-12">
+            <h4>ویژگی های محصول</h4>
+            <table class="table bg-white p-0 card-primary table-bordered text-danger">
+                <thead class="text-danger">
+                <tr>
+                    <td>عنوان</td>
+                    <td>مقدار</td>
+                </tr>
+                </thead>
+
+                <tbody id="table-body">
+                <tr>
+                    <td>
+                        <input type="text" placeholder="وزن" name="Keys" class="form-control" />
+                    </td>
+                    <td>
+                        <input type="text" placeholder="1 کیلو" name="Values" class="form-control" />
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+            <div class="form-input">
+                <div class="mt-2">
+                    <input id="rowCount" type="number" placeholder="تعداد ردیف مورد نظر را وارد کنید" class="form-control text-right" style="width: 20%; display: inline-block" />
+                    <p style="margin: 0 10px; display: inline-block">ردیف</p>
+                    <a onclick="AddRow()" class="btn  btn-primary text-white text-center" style="height: fit-content;  display: inline"> اضافه کن</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-footer text-left">
+        <cancel></cancel>
+        <submit></submit>
+    </div>
+</form>

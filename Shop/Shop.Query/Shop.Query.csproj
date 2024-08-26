@@ -7,13 +7,47 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Products\Galleries\GetByList\GetProductImageByListQuerycs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Products\Galleries\GetByList\GetProductImageByListQuerycs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Common\Common.Query\Common.Query.csproj" />
     <ProjectReference Include="..\Shop.Infrastructure\Shop.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Categories\GetById\" />
+    <Folder Include="Categories\GetByParentId\" />
+    <Folder Include="Categories\GetByList\" />
+    <Folder Include="Categories\GetByFilter\" />
+    <Folder Include="Categories\DTOs\" />
+    <Folder Include="Orders\DTOs\" />
+    <Folder Include="Orders\GetById\" />
+    <Folder Include="Products\GetById\" />
+    <Folder Include="Products\GetByList\" />
+    <Folder Include="Products\GetByFilter\" />
+    <Folder Include="Products\GetForShop\" />
+    <Folder Include="Roles\DTOs\" />
+    <Folder Include="Roles\GetById\" />
+    <Folder Include="Roles\GetList\" />
+    <Folder Include="Sellers\GetById\" />
+    <Folder Include="Sellers\GetByFilter\" />
+    <Folder Include="Sellers\Inventories\GetById\" />
+    <Folder Include="Sellers\Inventories\GetByList\" />
+    <Folder Include="Sellers\GetByUserId\" />
+    <Folder Include="Sellers\Inventories\GetByProductId\" />
+    <Folder Include="SiteEntities\Banners\GetById\" />
+    <Folder Include="SiteEntities\DTOs\" />
+    <Folder Include="SiteEntities\Sliders\GetById\" />
+    <Folder Include="SiteEntities\Sliders\GetByList\" />
+    <Folder Include="Users\Addresses\GetById\" />
+    <Folder Include="Users\Addresses\GetByList\" />
     <Folder Include="Users\GetByPhoneNumber\" />
-    <Folder Include="Users\DTOs\" />
+    <Folder Include="Users\GetUsersByFilter\" />
   </ItemGroup>
 
 </Project>

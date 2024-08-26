@@ -25,6 +25,7 @@ public class SellerConfiguration : IEntityTypeConfiguration<Seller>
             option.HasIndex(b => b.SellerId);
 
         });
+        
     }
 
 }

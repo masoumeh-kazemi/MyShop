@@ -45,4 +45,10 @@ public class SeoDataViewModel
             Schema = seoData.Schema
         };
     }
+
+    public static SeoData MapViewModelToSeoData(SeoDataViewModel viewModel)
+    {
+        return new SeoData(viewModel.MetaKeyWords, viewModel.MetaDescription, viewModel.MetaTitle,
+            viewModel.IndexPage, viewModel.Canonical, viewModel.Schema);
+    }
 }

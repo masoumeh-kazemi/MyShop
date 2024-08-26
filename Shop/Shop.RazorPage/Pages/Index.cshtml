@@ -1,10 +1,271 @@
 ﻿@page
+@using Common.Application._Utilities
+@using Shop.Domain.SiteEntities.Enum
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
+    var topBanner = Model.Banners.FirstOrDefault(banner => banner.Position == BannerPosition.بالای_اسلایدر);
+    var leftBanner = Model.Banners.Where(banner => banner.Position == BannerPosition.سمت_چپ_اسلایدر);
+    var rightBanner = Model.Banners.Where(banner => banner.Position == BannerPosition.سمت_راست_شگفت_انگیز);
+    var middlePageBanner = Model.Banners.Where(banner => banner.Position == BannerPosition.وسط_صفحه);
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<div class="row d-none d-sm-block">
+    <div class="col-12 mb-3">
+        <div class="banner">
+            <a href="@topBanner.Link">
+                <img src="@Directories.GetBannerImage(topBanner.ImageName)" alt="banner">
+            </a>
+        </div>
+    </div>
 </div>
+<div class="row mb-4">
+    <div class="col-lg-8 ml-lg-0 mb-3">
+        <div class="main-slider">
+            <div class="swiper-container main-page-slider">
+                <div class="swiper-wrapper">
+                    @{
+                        var count = 1;
+                    }
+                    @foreach (var item in Model.Sliders)
+                    {
+
+                        <div class="swiper-slide">
+                            <a href="@item.Link">
+                                <img src="@Directories.GetSliderImage(item.ImageName)" alt="@item.ImageName">
+                            </a>
+                        </div>
+                        count += 1;
+
+                    }
+
+                </div>
+                <!-- Add Arrows -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+            <div class="swiper-container main-page-slider-thumbs d-none d-sm-block">
+                <div class="swiper-wrapper">
+                    @foreach (var item in Model.Sliders)
+                    {
+                        <div class="swiper-slide">
+                            <span>@item.Title</span>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="row">
+            @if (leftBanner.Any())
+            {
+                @foreach (var item in leftBanner.Take(2))
+                {
+                    <div class="col-lg-12 col-sm-6 col-12">
+                        <div class="banner mb-3">
+                            <a href="@item.Link">
+                                <img src="@Directories.GetBannerImage(item.ImageName)" alt="banner">
+                            </a>
+                        </div>
+                    </div>
+                }
+
+            }
+        </div>
+    </div>
+</div>
+<div class="row align-items-center mb-4">
+
+    <div class="col-lg-4 order-2 order-lg-1">
+        @foreach (var item in rightBanner)
+        {
+            <div class="row mt-4 mt-lg-0">
+                <div class="col-lg-12 col-sm-6 col-12">
+                    <div class="banner mb-4">
+                        <a href="@item.Link">
+                            <img src="@Directories.GetBannerImage(item.ImageName)" alt="banner">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    @if (Model.LatestProducts.Any())
+    {
+        <div class="col-lg-8 order-1 order-lg-2">
+            <div class="offer-slider-wrapper">
+                <div class="offer-slider-title">محصولات</div>
+                <div class="row">
+                    <div class="col-12 mb-1">
+                        <div class="swiper-container offer-slider swiper-container-fade swiper-container-initialized swiper-container-horizontal swiper-container-rtl">
+                            <div class="swiper-wrapper" style="transition-duration: 0ms;">
+                                @foreach (var item in Model.SpecialProductsResult)
+                                {
+                                    <div class="swiper-slide" style="width: 881px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">
+                                        <div class="row align-items-center pb-3">
+                                            <div class="col-sm-6 col-12 order-2 order-sm-1">
+                                                <div class="product-title">
+                                                    <a href="/product/@item.Slug/@item.SellerId">
+                                                        @item.Title
+                                                    </a>
+                                                </div>
+                                                <div class="product-price">
+@*                                                    <del>@item.Price.ToString("#,0")</del>
+*@                                                    @item.TotalPrice.ToString("#,0") تومان
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-12 order-1 order-sm-2">
+                                                <div class="offer-slide-content">
+                                                    <div class="product-thumbnail">
+                                                        <a href="/product/@item.Slug/@item.SellerId">
+                                                            <img src="@Directories.GetProductImage(item.ImageName)" alt="@item.ImageName">
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                }
+                            </div>
+                            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row align-items-center pb-4">
+                    <div class="col-lg-8 mt-2 mb-4 mb-lg-0">
+                        <div class="offer-slider-thumbs-wrapper">
+                            <div class="px-0 px-sm-5">
+                                <div class="swiper-container offer-slider-thumbs swiper-container-initialized swiper-container-horizontal swiper-container-rtl">
+                                    <div class="swiper-wrapper" style="transition-duration: 0ms; transform: translate3d(0px, 0px, 0px);">
+
+                                        @foreach (var item in Model.SpecialProductsResult)
+                                        {
+                                            <div class="swiper-slide" style="width: 96.2px;">
+                                                <img src="@Directories.GetProductImage(item.ImageName)" alt="item">
+                                            </div>
+
+                                        }
+
+                                    </div>
+                                    <!-- Add Pagination -->
+                                    <div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets"><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2"></span><span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 3"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 4"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 5"></span></div>
+                                    <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+                                </div>
+                            </div>
+                            <!-- Add Arrows -->
+                            <div class="offer-slider-button-next" tabindex="0" role="button" aria-label="Next slide" aria-disabled="false"><i class="far fa-chevron-left"></i></div>
+                            <div class="offer-slider-button-prev" tabindex="0" role="button" aria-label="Previous slide" aria-disabled="false"><i class="far fa-chevron-right"></i></div>
+                        </div>
+                    </div>
+                    @*                    <div class="col-lg-4">
+                <div class="d-flex justify-content-center">
+                <div id="countdown--offer-slider"><div class="ClassyCountdown-wrapper"><div class="ClassyCountdown-days" style="height: 40px;"><div style="display: inline; height: 40px; width: 40px;"><canvas width="50" height="50" style="width: 40px; height: 40px;"></canvas><input type="text" readonly="readonly" style="display: none; width: 0px; visibility: hidden;"></div><span class="ClassyCountdown-value" style="font-family: &quot;Open Sans&quot;; font-weight: 300; color: rgb(52, 73, 94); margin-top: -10px; font-size: 12px;"><div>7</div><span></span></span></div><div class="ClassyCountdown-hours" style="height: 40px;"><div style="display: inline; height: 40px; width: 40px;"><canvas width="50" height="50" style="width: 40px; height: 40px;"></canvas><input type="text" readonly="readonly" style="display: none; width: 0px; visibility: hidden;"></div><span class="ClassyCountdown-value" style="font-family: &quot;Open Sans&quot;; font-weight: 300; color: rgb(52, 73, 94); margin-top: -10px; font-size: 12px;"><div>11</div><span></span></span></div><div class="ClassyCountdown-minutes" style="height: 40px;"><div style="display: inline; height: 40px; width: 40px;"><canvas width="50" height="50" style="width: 40px; height: 40px;"></canvas><input type="text" readonly="readonly" style="display: none; width: 0px; visibility: hidden;"></div><span class="ClassyCountdown-value" style="font-family: &quot;Open Sans&quot;; font-weight: 300; color: rgb(52, 73, 94); margin-top: -10px; font-size: 12px;"><div>19</div><span></span></span></div><div class="ClassyCountdown-seconds" style="height: 40px;"><div style="display: inline; height: 40px; width: 40px;"><canvas width="50" height="50" style="width: 40px; height: 40px;"></canvas><input type="text" readonly="readonly" style="display: none; width: 0px; visibility: hidden;"></div><span class="ClassyCountdown-value" style="font-family: &quot;Open Sans&quot;; font-weight: 300; color: rgb(52, 73, 94); margin-top: -10px; font-size: 12px;"><div>7</div><span></span></span></div></div></div>
+                </div>
+                </div>*@
+                </div>
+            </div>
+        </div>
+
+    }
+</div>
+<section class="product-carousel in-box">
+    <div class="section-title">
+        <i class="fad fa-pen-nib"></i>
+        آخرین محصولات
+    </div>
+    <div class="swiper-container slider-lg">
+        <div class="swiper-wrapper">
+
+            @foreach (var item in Model.LatestProducts)
+            {
+                <div class="swiper-slide">
+                    <partial name="Admin/Shared/_ProductCart" model="@item" />
+                </div>
+            }
+
+        </div>
+        <!-- Add Arrows -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+</section>
+<div class="row mb-5">
+
+    @foreach (var item in middlePageBanner)
+    {
+        <div class="col-md-6 mb-lg-0 mb-3">
+            <div class="banner">
+                <a href="@item.Link">
+                    <img src="@Directories.GetBannerImage(@item.ImageName)" alt="banner">
+                </a>
+            </div>
+        </div>
+    }
+</div>
+
+@if (Model.TopVisionProducts.Any())
+{
+    <div class="row mb-5">
+        <div class="col-12 mb-4">
+            <div class="section-title">
+                <i class="fad fa-sort-size-up-alt"></i>
+                ویژه ها
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="row">
+
+                @foreach (var item in Model.TopVisionProducts.Take(4))
+                {
+                    <div class="col-md-6">
+                       
+                        <div class="product-card product-card-horizontal border-bottom">
+                            <div class="product-card-top">
+                                <a href="/Product/@item.Slug/@item.SellerId" class="product-image">
+                                    <img src="@Directories.GetProductImage(@item.ImageName)" alt="product image">
+                                </a>
+@*                                <div class="product-card-actions">
+                                    <button class="add-to-wishlist"><i class="fas fa-heart"></i></button>
+                                    <button class="add-to-compare"><i class="fas fa-random"></i></button>
+                                </div>*@
+                            </div>
+                            <div class="product-card-middle">
+@*                                <div class="ratings-container">
+                                    <div class="ratings">
+                                        <div class="ratings-val" style="width: 65%;"></div>
+                                    </div>
+                                </div>*@
+                                <h6 class="product-name">
+                                    <a href="/product/{@item.Slug}">
+                                        @item.Title
+                                    </a>
+                                </h6>
+                                <div class="product-price product-price-clone">@item.TotalPrice.ToString("#,0")تومان</div>
+                            </div>
+                            <div class="product-card-bottom">
+                                <div class="product-price">
+                                    @item.TotalPrice.ToString("#,0")تومان
+                                </div>
+                                <a href="#" onclick="addToCart('@item.InventoryId', '1')" class="btn-add-to-cart">
+                                    <i class="fad fa-cart-plus"></i>
+                                    افزودن به سبد خرید
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                }
+
+            </div>
+
+        </div>
+
+    </div>
+
+}
+
+

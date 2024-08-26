@@ -1,0 +1,68 @@
+﻿@page
+@model Shop.RazorPage.Pages.Profile.IndexModel
+@{
+    Layout = "Shared/_Layout";
+}
+
+<div class="row mb-5">
+    <partial name="Shared/_ProfileSideBar"/>
+    <div class="col-lg-9 col-md-8">
+        <div class="row mb-4">
+            <div class="col-lg-12 mb-lg-0 mb-3">
+                <div class="section-title mb-2">
+                    اطلاعات شخصی
+                </div>
+                <section class="shadow-around p-3">
+                    <div class="row">
+                        <div class="col-lg-4 mb-4">
+                            <div class="text-sm text-muted">نام و نام خانوادگی:</div>
+                            @if (string.IsNullOrWhiteSpace(Model.UserDto.Name) && string.IsNullOrWhiteSpace(Model.UserDto.Family))
+                            {
+                                <div class="text-dark font-weight-bold">-</div>
+
+                            }
+                            <div class="text-dark font-weight-bold">@Model.UserDto.Name @Model.UserDto.Family</div>
+                        </div>
+                        <div class="col-lg-4 mb-4">
+                            <div class="text-sm text-muted">پست الکترونیک:</div>
+                            @if (string.IsNullOrWhiteSpace(Model.UserDto.Email) == false)
+                            {
+                                <div class="text-dark font-weight-bold">@Model.UserDto.Email</div>
+
+                            }
+                            else
+                            {
+                                <div class="text-dark font-weight-bold">example@example.com</div>
+
+                            }
+                        </div>
+                        <div class="col-lg-4 mb-4">
+                            <div class="text-sm text-muted">شماره تلفن همراه:</div>
+                            <div class="text-dark font-weight-bold">@Model.UserDto.PhoneNumber</div>
+                        </div>
+@*                        <div class="col-lg-6 mb-4">
+                            <div class="text-sm text-muted">کد ملی:</div>
+                            <div class="text-dark font-weight-bold">-</div>
+                        </div>
+                        <div class="col-lg-6 mb-4">
+                            <div class="text-sm text-muted">دریافت خبرنامه:</div>
+                            <div class="text-dark font-weight-bold">خیر</div>
+                        </div>
+                        <div class="col-lg-6 mb-4">
+                            <div class="text-sm text-muted">روش بازگشت وجه:</div>
+                            <div class="text-dark font-weight-bold">-</div>
+                        </div>*@
+                        <div class="col-12">
+                            <div class="text-center">
+                                <a href="/profile/edit" class="link--with-border-bottom">
+                                    <i class="far fa-edit"></i>
+                                    ویرایش اطلاعات شخصی
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>

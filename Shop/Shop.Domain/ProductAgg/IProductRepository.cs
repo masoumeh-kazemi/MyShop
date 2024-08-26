@@ -1,6 +1,8 @@
-﻿namespace Shop.Domain.ProductAgg;
+﻿using Common.Domain.Repository;
 
-public interface IProductRepository
+namespace Shop.Domain.ProductAgg;
+
+public interface IProductRepository : IBaseRepository<Product>
 {
-    
+    void Delete(Product product);
 }

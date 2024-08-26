@@ -1,0 +1,213 @@
+﻿@*
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Shop.Presentation.Facade.Categories
+@inject ICategoryFacade CategoryFacade
+@{
+    var categories = await CategoryFacade.GetByList();
+}
+<div class="header-responsive">
+    <div class="header-top">
+        <div class="side-navigation-wrapper">
+            <button class="btn-toggle-side-navigation"><i class="far fa-bars"></i></button>
+            <div class="side-navigation">
+                <div class="site-logo">
+                    <a href="/">
+                        <img src="/assets/images/logo.png" alt="logo">
+                    </a>
+                </div>
+                <div class="divider"></div>
+                <ul class="category-list">
+                    @foreach (var item in categories)
+                    {
+                        <li class="has-children">
+                            <a href="#">@item.Title</a>
+                            <ul>
+                                <li>
+                                    <a href="/search?category=@item.Slug">همه دسته بندی های @item.Title</a>
+                                </li>
+                                @foreach (var child in item.ChildCategory)
+                                {
+                                    <li class="@(child.SecondaryChild.Any() ? "has-children" : null)">
+                                        <a href="/search?category=@child.Slug">@child.Title</a>
+
+                                        @if (child.SecondaryChild.Any())
+                                        {
+                                            <ul>
+                                                @foreach (var subChild in child.SecondaryChild)
+                                                {
+                                                    <li>
+                                                        <a href="/search?category=@subChild.Slug">@subChild.Title</a>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        }
+
+                                    </li>
+                                }
+
+                            </ul>
+                        </li>
+
+
+                    }
+                </ul>
+            </div>
+            <div class="overlay-side-navigation"></div>
+        </div>
+        <div class="site-logo">
+            <a href="/">
+                <img src="/assets/images/logo.png" alt="logo">
+            </a>
+        </div>
+        <div class="header-tools">
+            <a href="/shopCart">
+                <i class="far fa-shopping-basket"></i>
+                <span class="bag-items-number">2</span>
+            </a>
+        </div>
+    </div>
+    <div class="header-bottom">
+        <div class="search-box">
+            <form action="#">
+                <input type="text" placeholder="نام محصول یا برند را جستجو کنید...">
+                <i class="far fa-search"></i>
+            </form>
+            <div class="search-result">
+                <ul class="search-result-list">
+                    <li><a href="#">موبایل</a></li>
+                    <li><a href="#">سامسونگ</a></li>
+                    <li><a href="#">مودم</a></li>
+                    <li><a href="#">اپل</a></li>
+                    <li><a href="#">تلویزیون</a></li>
+                </ul>
+                <ul class="search-result-most-view">
+                    <li><a href="#">موبایل</a></li>
+                    <li><a href="#">سامسونگ</a></li>
+                    <li><a href="#">مودم</a></li>
+                    <li><a href="#">اپل</a></li>
+                    <li><a href="#">تلویزیون</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="header-tools">
+            <a href="#"><i class="far fa-user-circle"></i></a>
+        </div>
+    </div>
+</div>*@
+
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Shop.Presentation.Facade.Categories
+@inject ICategoryFacade CategoryFacade
+@{
+    var categories = await CategoryFacade.GetByList();
+}
+<div class="header-responsive">
+    <div class="header-top">
+        <div class="side-navigation-wrapper">
+            <button class="btn-toggle-side-navigation"><i class="far fa-bars"></i></button>
+            <div class="side-navigation">
+                <div class="site-logo">
+                    <a href="/">
+                        <img src="/assets/images/logo.png" alt="logo">
+                    </a>
+                </div>
+                <div class="divider"></div>
+                @foreach (var item in categories)
+                {
+                    <ul class="category-list">
+
+                        <li class="has-children">
+                            <a href="#">@item.Title</a>
+                            <ul>
+                                <li>
+                                    <a href="/search?category=@item.Slug">همه دسته بندی های @item.Title</a>
+                                </li>
+                                @foreach (var child in item.ChildCategory)
+                                {
+                                    <li class="@(child.SecondaryChild.Any() ? "has-children" : null)">
+                                        <a href="/search?category=@child.Slug">@child.Title</a>
+
+                                        @if (child.SecondaryChild.Any())
+                                        {
+                                            <ul>
+                                                @foreach (var subChild in child.SecondaryChild)
+                                                {
+
+                                                    <li>
+                                                        <a href="/search?category=@subChild.Slug">@subChild.Title</a>
+                                                    </li>
+
+                                                }
+                                            </ul>
+
+                                        }
+
+                                    </li>
+                                }
+
+                            </ul>
+                        </li>
+
+                    </ul>
+
+                }
+            </div>
+            <div class="overlay-side-navigation"></div>
+        </div>
+        <div class="site-logo">
+            <a href="/">
+                <img src="/assets/images/logo.png" alt="logo">
+            </a>
+        </div>
+        <div class="header-tools">
+            <a href="/shopCart">
+                <i class="far fa-shopping-basket"></i>
+                <span class="bag-items-number">0</span>
+            </a>
+        </div>
+    </div>
+    @*    <div class="header-bottom">
+    <div class="search-box">
+    <form action="#">
+    <input type="text" placeholder="نام محصول یا برند را جستجو کنید...">
+    <i class="far fa-search"></i>
+    </form>
+    <div class="search-result">
+    <ul class="search-result-list">
+    <li><a href="#">موبایل</a></li>
+    <li><a href="#">سامسونگ</a></li>
+    <li><a href="#">مودم</a></li>
+    <li><a href="#">اپل</a></li>
+    <li><a href="#">تلویزیون</a></li>
+    </ul>
+    <ul class="search-result-most-view">
+    <li><a href="#">موبایل</a></li>
+    <li><a href="#">سامسونگ</a></li>
+    <li><a href="#">مودم</a></li>
+    <li><a href="#">اپل</a></li>
+    <li><a href="#">تلویزیون</a></li>
+    </ul>
+    </div>
+    </div>
+
+    *@
+
+    <div class="header-tools">
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <a href="/auth/login">
+                <i class="far fa-user-circle"></i>
+            </a>
+        }
+        else
+        {
+            <a href="/profile" class="btn btn-auth">
+                مشاهده حساب کاربری
+            </a>
+        }
+
+
+
+    </div>
+</div>

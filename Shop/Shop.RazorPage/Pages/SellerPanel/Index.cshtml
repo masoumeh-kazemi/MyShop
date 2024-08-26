@@ -1,0 +1,52 @@
+﻿@page
+@using Shop.Domain.SellerAgg
+@model Shop.RazorPage.Pages.SellerPanel.IndexModel
+@{
+}
+
+@{
+    ViewData["title"] = "داشبورد";
+    ViewData["selected"] = "index";
+
+    Layout = "Shared/_SellerLayout";
+}
+<div class="table-responsive card">
+    <table class="table table-bordered card-body">
+        <thead>
+        <tr>
+
+            <th>شماره کاربری</th>
+            <th>نام فروشگاه</th>
+            <th>کد ملی</th>
+            <th>وضعیت</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>@Model.Seller.UserId</td>
+            <td>@Model.Seller.ShopName</td>
+            <td>@Model.Seller.NationalCode</td>
+            @switch (@Model.Seller.Status)
+            {
+                case SellerStatus.Accepted:
+                    <td>پذیرفته شده</td>
+                    break;
+
+                case SellerStatus.InActive:
+                    <td>در حال فعالیت</td>
+                    break;
+
+                        
+                case SellerStatus.New:
+                    <td>جدید</td>
+                    break;
+                case SellerStatus.Rejected:
+                    <td>رد شده</td>
+                    break;
+            }
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+

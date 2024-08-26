@@ -109,29 +109,30 @@ $(document).ready(function () {
 
         }
         $(".cart-footer .total").html(data.price)
-        if (data.items.length == 0) {
+        var length = data.items.length;
+        if (data.items.length == '0') {
             $('.cart-list ul').remove();
+            $('#bag-items-number').html(0);
         } else {
             data.items.map((i) => {
+                //console.log(i)
                 $(".cart-items .do-nice-scroll").append(`
                         <li class="cart-item">
                                     <span class="d-flex align-items-center mb-2">
-                                        <a href="/product/${i.productSlug}">
-                                            <img src="https://localhost:44343/images/products/${i.productImageName}" alt="">
-                                        </a>
+                                   <a href="/product/${i.productSlug}/${i.sellerId}">
+                                   <img src="/images/products/${i.productImageName}" alt="" />
+                                   </a>
                                         <span>
-                                            <a href="#">
                                                 <span class="title-item">
                                                     ${i.productTitle}
                                                 </span>
-                                            </a>
                                             <span class="color d-flex align-items-center">
                                                 تعداد:
                                                 <label style='display:contents'>${i.count}</label>
                                             </span>
                                         </span>
                                     </span>
-                                    <span class="price">${splitNumber(i.totalPrice)} تومان</span>
+                                    <span class="price">${splitNumber(i.discountPrice)} تومان</span>
                                     <button class="remove-item" onclick="DeleteItem('/ShopCart/DeleteItem?id=${i.id}','')">
                                         <i class="far fa-trash-alt"></i>
                                     </button>

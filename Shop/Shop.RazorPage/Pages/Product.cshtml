@@ -1,0 +1,397 @@
+﻿@page "{slug}/{sellerId}"
+@using Common.Application._Utilities
+@using Microsoft.EntityFrameworkCore.Infrastructure
+@using Shop.Presentation.Facade.Products
+@using Shop.Presentation.Facade.Sellers.Inventories
+@using Shop.Query.Products.DTOs
+@using Shop.Query.Sellers.Inventories.DTOs
+@model Shop.RazorPage.Pages.ProductModel
+@inject IProductFacade ProductFacade;
+@inject ISellerInventoryFacade SellerInventoryFacade;
+@{
+    Layout = "Shared/_Layout";
+    var relatedProducts = await ProductFacade.GetForShop(new ProductShopFilterParam()
+    {
+        CategorySlug = Model.Product.Category.Slug
+    });
+    var productId = Model.Product.Id;
+    var title = Model.Product.Title;
+    ViewData["title"] = "title";
+    var inventories = Model.Inventories;
+
+    InventoryDto? inventory = null;
+   
+    if (inventories != null)
+    {
+        inventory = inventories.FirstOrDefault(f => f.SellerId == Model.SellerId);
+
+    }
+}
+<div class="container">
+    <div class="row mb-1">
+        <div class="col-12">
+            <!-- breadcrumb -->
+            <div class="breadcrumb mb-1">
+                <nav>
+                    <a href="#">فروشگاه اینترنتی</a>
+                    
+                    <a href="/search?Category=@Model.Product.Category.Slug">@Model.Product.Category.Title</a>
+                    <a href="/search?Category=@Model.Product.SubCategory.Slug">@Model.Product.SubCategory.Title</a>
+                    @if (Model.Product.SecondarySubCategory != null)
+                    {
+                        <a href="/search?Category=@Model.Product.SecondarySubCategory.Slug">@Model.Product.SecondarySubCategory.Title</a>
+
+                    }
+                    <a class="">@Model.Product.Title</a>
+                </nav>
+            </div>
+            <!-- end breadcrumb -->
+        </div>
+    </div>
+<div class="product-detail shadow-around mb-5 py-5">
+    <div class="row mb-3 mx-0">
+        <div class="col-xl-4 col-lg-4 col-md-6">
+            <div class="product-gallery">
+                <div class="swiper-container gallery-slider">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img src="@Directories.GetProductImage(Model.Product.ImageName)"
+                                 data-zoom-image="@Directories.GetProductImage(Model.Product.ImageName)" class="zoom-image"
+                                 alt="@Model.Product.Title">
+                        </div>
+                        @foreach (var item in Model.Product.Images.OrderBy(d => d.Sequence))
+                        {
+                            <div class="swiper-slide">
+                                <img src="@Directories.GetProductGalleryImage(item.ImageName)"
+                                     data-zoom-image="@Directories.GetProductGalleryImage(item.ImageName)" class="zoom-image"
+                                     alt="@Model.Product.Title">
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="swiper-container gallery-slider-thumbs">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img src="@Directories.GetProductImage(Model.Product.ImageName)"
+                                 data-zoom-image="@Directories.GetProductImage(Model.Product.ImageName)"
+                                 alt="@Model.Product.Title">
+                        </div>
+                        @foreach (var item in Model.Product.Images.OrderBy(d => d.Sequence))
+                        {
+                            <div class="swiper-slide">
+                                <img src="@Directories.GetProductGalleryImage(item.ImageName)"
+                                     data-zoom-image="@Directories.GetProductGalleryImage(item.ImageName)"
+                                     alt="@Model.Product.Title">
+                            </div>
+                        }
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+                @*                <ul class="product--actions">
+                    <li>
+                    <a href="#" data-toggle="modal" data-target="#shareLinkModal">
+                    <i class="fas fa-share-alt"></i>
+                    </a>
+                    <span class="tooltip--action">اشتراک گذاری</span>
+                    </li>
+                    </ul>*@
+            </div>
+        </div>
+        <div class="col-xl-5 col-lg-4 col-md-6">
+            <div class="product-title mb-3">
+                <h1>
+                    @Model.Product.Title
+                </h1>
+
+            </div>
+            <div class="d-block mb-2">
+                <span class="font-weight-bold">نام فروشگاه:</span>
+                    <span class="font-weight-bold">@Model.ShopName</span>
+            </div>
+            <div class="product-params-special">
+                <ul data-title="ویژگی‌های محصول">
+                    @foreach (var item in Model.Product.Specifications.Take(4))
+                    {
+                        <li>
+                            <span>@item.Key:</span>
+                            <span>@item.Value</span>
+                        </li>
+
+                    }
+
+                </ul>
+            </div>
+            @*                <div class="alert alert-warning">
+                    <div class="alert-body">
+                        <p class="d-flex align-items-center">
+                            <i class="fad fa-history ml-2"></i>
+                            حداکثر تا 3 روز تحویل داده می شود.
+                        </p>
+                    </div>
+                </div>*@
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6">
+            @if (inventory == null)
+            {
+                <div class="box-info-product">
+                    <div class="d-flex align-items-center">
+                        <div class="alert alert-warning">
+                            فروشنده ای برای این محصول وجود ندارد
+                        </div>
+                    </div>
+                </div>
+
+            }
+            else
+            {
+                <div class="box-info-product">
+@*                    <div class="d-block mb-3">
+                        <span class="d-block">
+                            تعداد:
+                        </span>
+                        <div class="num-block">
+                            <div class="num-in">
+                                <span class="plus"></span>
+                                <input type="text" id="item_count" class="in-num" value="1" readonly="">
+                                <span class="minus dis"></span>
+                            </div>
+                        </div>
+                    </div>*@
+                    <div class="d-flex align-items-center justify-content-end mt-3">
+                        <div class="product-price">
+                            @if (inventory.DiscountPercentage > 0)
+                            {
+                                <div class="product-price-info">
+                                    <div class="product-price-off">
+                                        %@inventory.DiscountPercentage <span>تخفیف</span>
+                                    </div>
+                                    <div class="product-price-prev">
+                                        @inventory.Price.ToString("#,0")
+                                    </div>
+                                </div>
+                            }
+                            <div class="product-price-real">
+                                @{
+                                    var price = inventory.Price;
+                                    var AmountDiscount = (inventory.Price * inventory.DiscountPercentage) / 100;
+                                    var priceWithDiscount = price - AmountDiscount;
+                                }
+                                    <div class="product-price-raw">@priceWithDiscount.ToString("#,0") </div>
+                                تومان
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center">
+
+                        <a href="#" onclick="addToCartWithCount('@inventory.Id')" class="add-to-cart">
+                            افزودن به سبد خرید
+                        </a>
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+    <div class="py-3">
+        <div class="row mx-0">
+            <div class="col-12">
+                <hr>
+            </div>
+        </div>
+    </div>
+@*    <div class="services pt-3 row mx-0">
+        <div class="col-md-3 col-sm-6 mb-md-0 mb-4">
+            <div class="service-item">
+                <img src="./assets/images/services/delivery-person.png" alt="">
+                <div class="service-item-body">
+                    <h6>تحویل سریع و رایگان</h6>
+                    <p>تحویل رایگان کالا برای کلیه سفارشات بیش از 500 هزار تومان</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 mb-md-0 mb-4">
+            <div class="service-item">
+                <img src="./assets/images/services/recieve.png" alt="">
+                <div class="service-item-body">
+                    <h6>۷ روز ضمانت بازگشت</h6>
+                    <p>در صورت نارضایتی به هر دلیلی می توانید محصول را بازگردانید</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 mb-md-0 mb-4">
+            <div class="service-item">
+                <img src="./assets/images/services/headset.png" alt="">
+                <div class="service-item-body">
+                    <h6>پشتیبانی ۲۴ ساعته</h6>
+                    <p>در صورت وجود هرگونه سوال یا ابهامی، با ما در تماس باشید</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 mb-md-0 mb-4">
+            <div class="service-item">
+                <img src="./assets/images/services/debit-card.png" alt="">
+                <div class="service-item-body">
+                    <h6>پرداخت آنلاین ایمن</h6>
+                    <p>محصولات مدنظر خود را با خیال آسوده به صورت آنلاین خریداری کنید</p>
+                </div>
+            </div>
+        </div>
+    </div>
+*@</div>
+@if (inventories.Count>1)
+{
+    <h6>
+        لیست  فروشندگان این کالا
+    </h6>
+
+    <div class="sellers my-3">
+        <ul>
+                @foreach (var item in inventories)
+            {
+                <li class="card">
+                    <div class="card-body p-3">
+                        <p class="seller-item shop-name">
+                            <i class="fa fa-warehouse-alt ml-2"></i>
+                            @item.ShopName
+                        </p>
+                        <div class="seller-item add-to-cart">
+                            <b class="text-danger ">@item.TotalPrice.ToString("#,0")</b> <small>تومان</small>
+                            <a class="btn btn-danger mr-3" onclick="addToCart('@item.Id','1')">
+                                <i class="fa fa-shopping-cart"></i>
+                                افزودن به سبد خرید
+                            </a>
+                        </div>
+                    </div>
+
+                </li>
+            }
+        </ul>
+    </div>
+}
+
+
+    <!-- product-tab-content -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="product-tab-content">
+                <ul class="nav nav-tabs" id="product-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="productDescription-tab" data-toggle="tab" href="#productDescription" role="tab" aria-controls="productDescription" aria-selected="true">توضیحات</a>
+                    </li>
+@*                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="productParams-tab" data-toggle="tab" href="#productParams" role="tab" aria-controls="productParams" aria-selected="false">مشخصات فنی</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="productComments-tab" data-toggle="tab" href="#productComments" role="tab" aria-controls="productComments" aria-selected="false">نظرات</a>
+                    </li>*@
+                </ul>
+                <div class="tab-content" id="product-tab">
+                    <div class="tab-pane fade show active" id="productDescription" role="tabpanel" aria-labelledby="productDescription-tab">
+                        <div class="product-desc">
+                            <div class="accordion accordion-product" id="accordionDescription">
+                                <div class="card">
+
+
+                                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionDescription">
+                                        <div class="card-body">
+                                            <p>@Html.Raw(Model.Product.Description)</p>
+                                            <img src="./assets/images/single-product/01.jpg" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="productParams" role="tabpanel" aria-labelledby="productParams-tab">
+                        <div class="product-params">
+                            <section>
+                                <h3 class="params-title">مشخصات کلی</h3>
+                                <ul class="params-list">
+                                    @foreach (var item in Model.Product.Specifications)
+                                    {
+                                        <li>
+                                            <div class="params-list-key">
+                                                <span>@item.Key</span>
+                                            </div>
+                                            <div class="params-list-value">
+                                                <span>
+                                                  @item.Value
+                                                </span>
+                                            </div>
+                                        </li>
+
+                                    }
+                                </ul>
+                            </section>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end product-tab-content -->
+    <section class="product-carousel">
+        <div class="section-title">
+            <i class="fad fa-retweet"></i>
+            پیشنهادهای مشابه
+        </div>
+        <div class="swiper-container slider-lg swiper-container-initialized swiper-container-horizontal swiper-container-rtl">
+            <div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px);">
+                @foreach (var item in relatedProducts.Data)
+                {
+                    <partial name="Admin/Shared/_ProductCart" model= "@item"/>
+
+                }
+            </div>
+            <!-- Add Arrows -->
+            <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-disabled="false"></div>
+            <div class="swiper-button-prev swiper-button-disabled" tabindex="0" role="button" aria-label="Previous slide" aria-disabled="true"></div>
+            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+        </div>
+    </section>
+</div>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var productId = $("#productId").val();
+            $.ajax({
+                url: `/product/slug/ProductComments?productId=${productId}&pageId=1`,
+                type: "get"
+            }).done(function (data) {
+                $("#comments").html(data);
+            });
+        })
+
+        function changeCommentPage(pageId) {
+            var productId = $("#productId").val();
+
+            $.ajax({
+                url: `/product/slug/ProductComments?productId=${productId}&pageId=${pageId}`,
+                type: "get"
+            }).done(function (data) {
+                $("#comments").html(data);
+            });
+        }
+
+
+        function addToCartWithCount(id) {
+            //var count = $("#item_count").val();
+            var count = 1;
+            if (count <= 0)
+                count = 1;
+
+            addToCart(id, count);
+        }
+    </script>
+    
+    
+   
+}
+
+

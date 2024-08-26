@@ -1,0 +1,137 @@
+﻿@using Common.Application._Utilities
+@using Common.AspNetCore
+@using Shop.Presentation.Facade.Categories
+@using Shop.Presentation.Facade.Orders
+@using Shop.Presentation.Facade.Users
+@inject IOrderFacade OrderFacade;
+@inject ICategoryFacade CategoryFacade;
+@inject IUserFacade UserFacade;
+
+@{
+    var categories = await CategoryFacade.GetByList();
+    var currentUser = await UserFacade.GetById(User.GetUserId());
+}
+<header class="page-header">
+    <div class="top-page-header">
+        <div class="container">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="contact-list">
+                    <ul>
+                        <li><a href="/auth/sellerRegister">ثبت نام فروشنده</a></li>
+                        <li>
+                            <a href="/sellerPanel">پنل فروشنده</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="top-header-menu">
+                    <ul>
+                        <li><a href="/">خانه</a></li>
+                         <li><a href="/search">فروشگاه</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="bottom-page-header">
+            <div class="d-flex align-items-center">
+                <div class="site-logo">
+                    <a href="/">
+                        <img src="/assets/images/logo.png" alt="logo">
+                    </a>
+                </div>
+                <div class="search-box">
+                    <form action="/search">
+                        <input type="text" name="q" placeholder="نام محصول یا برند را جستجو کنید...">
+                        <i class="far fa-search"></i>
+                    </form>
+                </div>
+            </div>
+            <div class="user-items">
+                <div class="user-item cart-list">
+                    <a href="#">
+                        <i class="fal fa-shopping-basket"></i>
+                        <span class="bag-items-number">0</span>
+                    </a>
+                    <ul>
+                        <li class="cart-items">
+                            <ul class="do-nice-scroll">
+                            </ul>
+                        </li>
+                        <li class="cart-footer">
+                            <span class="d-block text-center mb-3">
+                                مبلغ کل:
+                                <span class="total">0 تومان</span>
+                            </span>
+                            <span class="d-block text-center px-2">
+                                <a href="/ShopCart" class="btn-cart">
+                                    مشاهده سبد خرید
+                                    <i class="mi mi-ShoppingCart"></i>
+                                </a>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="user-item account">
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <a href="/auth/login" class="btn-auth">
+                            <i class="fal fa-user-circle"></i>
+                            ورود | ثبت نام
+                        </a>
+
+                    }
+                    else
+                    {
+
+                        <a href="/profile" class="btn btn-auth">
+@*                            <i class="far fa-user-circle"></i>
+*@                            مشاهده حساب کاربری
+
+                        </a>
+                   
+                    }
+
+                </div>
+            </div>
+        </div>
+        <nav class="nav-wrapper">
+            <ul>
+                <li class="category-list">
+                    <a href="#"><i class="fal fa-bars"></i>دسته بندی کالاها</a>
+                    <ul>
+                        @foreach (var item in categories)
+                        {
+                                <li>
+                                    <a href="#">@item.Title</a>
+                                    <ul class="row">
+                                        <li class="col-12"><a href="/search?category=@item.Slug">همه دسته‌بندی‌های @item.Title</a></li>
+                                    @foreach (var child in item.ChildCategory)
+                                    {
+                                                <li class="col-3">
+                                                    <a href="/search?category=@child.Slug">@child.Title</a>
+                                            @if (child.SecondaryChild.Any())
+                                            {
+                                                @foreach (var subChild in child.SecondaryChild)
+                                                {
+                                                                    <ul>
+                                                                        <li>
+                                                                            <a href="/search?category=@subChild.Slug">@subChild.Title</a>
+                                                                        </li>
+
+                                                                    </ul>
+                                                }
+                                            }
+                                                </li>
+                                    }
+                                    </ul>
+                                </li>
+                        }
+
+
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
